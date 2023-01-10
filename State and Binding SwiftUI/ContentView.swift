@@ -8,15 +8,26 @@
 import SwiftUI
 
 struct ContentView: View {
-   @State private var isPlaying = false
+   @State private var Counter = 1 //@state let property Accessed from the View's body (or from function Called by it) // That's why you should State Proprties as Private.
+    @State private var paddingSize : CGFloat = 22 // Intial Size for Circle.
+    @State private var IncrementPadding = 10 // Increase Circle Size Every time Numbers Increases digit.
     var body: some View {
         Button(action: {
-            self.isPlaying.toggle()
+            Counter += 1 // Increment Counter by One For every Tap
+            if(Counter == IncrementPadding)
+            {
+               paddingSize += 10
+               IncrementPadding *= 10
+            }
         })
         {
-            Image(systemName: isPlaying ?  "stop.circle.fill" : "play.circle.fill")
-                .font(.system(size: 150))
-                .foregroundColor(isPlaying ? .red : .green)
+                 Text(String(Counter))
+                .font(.system(size: 100))
+                .fontWeight(.semibold)
+                .foregroundColor(.white)
+                .padding(paddingSize)// Padding Get Before Background Color control size of circle.
+                .background(Color.red)
+                .clipShape(Circle())
         }
     }
 }
